@@ -5,13 +5,13 @@
     <include file="$(find sztu_racecar)/launch/Run_car.launch" />
 
     <!-- Wheel odom-->
-    <include file="$(find wheel_odom)/launch/wheel_odom.launch"/>
+    <!-- <include file="$(find wheel_odom)/launch/wheel_odom.launch"/> -->
 
     <!--rf2o_Laser_Odometry-->
     <include file="$(find sztu_racecar)/launch/includes/rf2o.launch.xml" /> 
 
-    <!-- Run slam omapping -->
-    <include file="$(find sztu_omapping)/launch/main_omapping.launch" /> 
+    <!-- Run slam sztu_mapping -->
+    <include file="$(find sztu_mapping)/launch/main_sztu_mapping.launch" /> 
     <!--include file="$(find hector_mapping)/launch/mapping_default.launch" /--> 
    <!--include file="$(find sztu_racecar)/launch/Run_gmapping.launch" /--> 
 
