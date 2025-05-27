@@ -20,18 +20,19 @@ ${racing_car_ws}/
 - `Opencv2`
 - `ros_control`
 
-
-### ✅ Installation:
+---
+## ✅ Installation:
 ```bash
 git clone https://github.com/Hency-727/racecar_outdoor_ros_competition2022.git
 catkin_make
 echo "source $(pwd)/devel/setup.bash" >> ~/.bashrc && source ~/.bashrc
 ```
-
-### 🚀 Start:
+---
+## 🚀 Start:
 ```bash
 roslaunch sztu_racecar sztu_main.launch
 ```
 ```bash
 Rviz
 ```
+---
