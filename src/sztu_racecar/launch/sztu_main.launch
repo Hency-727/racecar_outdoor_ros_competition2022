@@ -1,0 +1,38 @@
+<launch>
+    <!-- detection -->
+    <node pkg="sztu_vision" type="vision" name="vision" output="screen" />
+    <!-- Run car -->
+    <include file="$(find sztu_racecar)/launch/Run_car.launch" />
+
+    <!-- Wheel odom-->
+    <include file="$(find wheel_odom)/launch/wheel_odom.launch"/>
+
+    <!--rf2o_Laser_Odometry-->
+    <include file="$(find sztu_racecar)/launch/includes/rf2o.launch.xml" /> 
+
+    <!-- Run slam omapping -->
+    <include file="$(find sztu_omapping)/launch/main_omapping.launch" /> 
+    <!--include file="$(find hector_mapping)/launch/mapping_default.launch" /--> 
+   <!--include file="$(find sztu_racecar)/launch/Run_gmapping.launch" /--> 
+
+    <!-- Robot_Localization -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+        <rosparam command="load" file="$(find sztu_racecar)/param/ekf_wheelodom_params.yaml" />
+    </node>
+
+    <!-- pure_pursuit controller -->  
+    <node pkg="sztu_racecar" type="pure_pursuit" respawn="false" name="pure_pursuit" output="screen">       
+        <rosparam file="$(find sztu_racecar)/param/sztu_params.yaml" command="load"/>
+    </node>
+
+    <!-- path_recording -->
+    <node pkg="sztu_racecar" type="path_recording" respawn="false" name="path_recording" output="screen">
+        <!-- <param name="controllerFreq" value="50.0"/>
+        <param name="minDistance" value="0.05"/> -->
+        <param name="maxDistance" value="60.0"/>
+     </node>
+   
+
+    
+
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+    <!-- Run slam sztu_mapping -->
+    <node pkg="sztu_mapping" type="sztu_mapping" respawn="false" name="sztu_mapping" output="screen">
+        <param name="controllerFreq" value="10.0"/>
+        <param name="range_lim_gain" value="2.0"/>
+        <param name="ave_lim_gain" value="5"/>
+        <param name="gmap_thr" value="400.0"/>
+        <param name="gmap_dot_radius" value="3.0"/>
+        <param name="scan_gain" value="-0.012"/>
+    </node>
+</launch>

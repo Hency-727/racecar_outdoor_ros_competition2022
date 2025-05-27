@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Map server -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find sztu_racecar)/map/ideal.yaml">
+        <remap from="map" to="map_amcl"/>
+    </node>
+    <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find sztu_racecar)/map/ideal.yaml"/>
+
+    <!-- ODOMETRY -->
+    <!--rf2o_Laser_Odometry-->
+    <!--<include file="$(find sztu_racecar)/launch/includes/rf2o.launch.xml" />-->
+    <!-- Robot_Localization -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <!--node pkg="robot_localization" type="ukf_localization_node" name="ukf_se" clear_params="true"-->
+        <!--rosparam command="load" file="$(find sztu_racecar)/param/ukf_params.yaml" /-->
+        <rosparam command="load" file="$(find sztu_racecar)/param/ekf_wheelodom_params.yaml" />
+    </node>
+
+    <!-- Localization -->
+    <!-- AMCL -->
+    <include file="$(find sztu_racecar)/launch/includes/amcl.launch.xml">
+        <!--arg name="init_x" value="$(arg init_x)"/-->
+        <!--arg name="init_y" value="$(arg init_y)"/-->
+        <!--arg name="init_a" value="$(arg init_a)"/-->
+    </include>
+
+    <!-- Navstack -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+        <!-- local planner -->
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>  
+        <param name="planner_frequency" value="5.0" />
+		<param name="planner_patience" value="20.0" />
+
+		<!--param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /-->
+		<param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+		<param name="controller_frequency" value="20.0" />
+		<param name="controller_patience" value="20.0" />
+        
+        <!--param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /-->
+        <!--rosparam file="$(find sztu_racecar)/param/dwa_local_planner_params.yaml" command="load" /-->
+        <remap from="/cmd_vel" to="/dwacmd_vel"/>
+        <!-- costmap layers -->    
+        <rosparam file="$(find sztu_racecar)/param/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+        <rosparam file="$(find sztu_racecar)/param/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+        <rosparam file="$(find sztu_racecar)/param/local_costmap_params.yaml" command="load"/>
+        <rosparam file="$(find sztu_racecar)/param/global_costmap_params.yaml" command="load"/>
+         
+        <!-- move_base params -->
+        <!--rosparam file="$(find sztu_racecar)/param/teb_local_planner_params.yaml" command="load"/-->
+        <rosparam file="$(find sztu_racecar)/param/base_global_planner_params.yaml" command="load"/>
+        <remap from="/move_base_simple/goal" to="/multi_point/goal"/>
+        <remap from="/odom" to="/odometry/filtered"/>
+    </node>
+
+        <!-- pure_pursuit controller -->  
+    <node pkg="sztu_racecar" type="pure_pursuit" respawn="false" name="pure_pursuit" output="screen">       
+        <rosparam file="$(find sztu_racecar)/param/pure_pursuit_params.yaml" command="load"/>
+        <remap from="/pure_pursuit/odom" to="/odometry/filtered" />
+        <remap from="/pure_pursuit/global_planner" to="/move_base/GlobalPlanner/plan" />
+        <remap from="/pure_pursuit/amcl" to="/amcl_pose" />
+        <remap from="/pure_pursuit/goal" to="/move_base_simple/goal" />
+    </node>
+    
+</launch>

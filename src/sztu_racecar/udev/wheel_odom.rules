@@ -1,0 +1,1 @@
+ACTION=="add",KERNELS=="2-6:1.0", SUBSYSTEMS=="usb", MODE:="0777", SYMLINK+="wheel_odom"

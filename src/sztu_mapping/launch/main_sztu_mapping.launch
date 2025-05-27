@@ -1,0 +1,7 @@
+<launch>    
+    <!-- Run slam gmapping -->
+    <include file="$(find csu_racecar)/launch/Run_gmapping.launch" />
+
+    <!-- Run slam sztu_mapping -->
+    <include file="$(find sztu_mapping)/launch/slam_sztu_mapping.launch" />
+</launch>

@@ -1,0 +1,54 @@
+goalNum: 0
+controllerFreq: 50
+#Car Parameter
+L: 0.38
+lfw: 0.20
+goalRadius: 0.5
+#90度尖尖 需要0.5(2.1m/s)--0.65(2.6m/s)
+
+turnRadius: 2.0 #3.3 #0.75 #0.55 #1.18 #1.2   #改小偏内，改大出发撞红桶  //2.0
+
+
+Vcmd:  11.0 #3.4
+UcurveSpeed: 10.0 #2.7 #2.5 #2.1   //10.0
+CommonTurnSpeed: 12.0 #2.7 #14
+
+#Steer Parameter
+baseAngle: 90.0
+dPhiDecGain: 0.03 #0.03
+angleGain: 0.0
+steerProportionL: 3.3 #3.3 #3.0 #3.3
+steerDifferentialL: 10.0 #30.0
+####teb Steer Parameter
+steerProportionH:  3.4 #2.5 #3.4
+steerDifferentialH: 4.0 #4.0
+
+#Lfw Paramete9
+
+
+
+LfwDecGain: 0.35 #0.2
+
+curDecGain: 0.3
+distCar2PtTsd4Lfw: 0.35 #1.5
+distPt2PtTsd4Lfw: 0.45 #0.25
+distCar2PtTsd4LfwMin: 1.1
+#U Curve Parameter
+#distCar2PtTsd4U: 0.8 #1.0
+#distPt2PtTsd4U: 1.0 #0.9 #1.2 #1.2
+#reduceSpdTsd: 2.0 #0.55 #0.65 #0.6
+#reduceSpdTsd4CommonTurn: 0.6
+
+distCar2PtTsd4U: 1.8 #2.0 #1.0
+distPt2PtTsd4U: 0.5 #0.6 #0.9 #1.2 #1.2
+reduceSpdTsd: 0.65 #0.6 #0.65 #0.6减速曲率阈值			
+length4TrajetoryTestUcurve: 15.0 #15.0
+length4TrajetoryTest90Obst: 0.0
+
+#Cal Kappi Parameter
+distCar2PtTsd4Kappi: 0.3 
+distPt2PtTsd4Kappi: 0.4 
+
+#final
+finalLength: 80.0
+finalVcmd: 3.4

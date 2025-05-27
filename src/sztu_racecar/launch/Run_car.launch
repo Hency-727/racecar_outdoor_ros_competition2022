@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+    <master auto="start"/>
+
+    <!-- TF setting -->
+    <include file="$(find sztu_racecar)/launch/includes/sztu_car_tf.launch.xml" />
+
+    <!-- SENSOR DEVICE -->
+    <!-- second startup ls01g lidar -->
+    <include file="$(find sztu_racecar)/launch/ls01b_v2.launch"/>
+
+    <!-- IMU -->
+    <node pkg="serial_imu" type="serial_imu" name="serial_imu"/>
+
+    <!-- Car -->
+    <node pkg="racing_driver" type="racing_driver_node" name="racing_driver_node"/>
+    <!--node pkg="racecar_driver" type="racecar_driver_node" name="racecar_driver_node"/-->
+
+	
+      <!-- Rviz -->
+    <!--node pkg="rviz" type="rviz" name="rviz" args="-d $(find sztu_racecar)/launch/rviz/gmapping.rviz" if="$(arg use_rviz)"-->
+
+</launch>
+
