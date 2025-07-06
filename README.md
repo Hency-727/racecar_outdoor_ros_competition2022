@@ -1,6 +1,8 @@
 # racecar_outdoor_ros_competition2022
 Codebase for 17th outdoor racing car competition based on ros.
 ---
+<video controls src="video/25_in_door_intelligent_driving.mp4" title="Demonstration Video"></video>
+---
 ## 📁 Configuration
 ```bash
 ${racing_car_ws}/
